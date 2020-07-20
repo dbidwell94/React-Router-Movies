@@ -1,19 +1,28 @@
-import React from 'react';
+import React from "react";
+import { v1 } from "uuid";
+import { useRouteMatch, useHistory } from "react-router-dom";
 
-const MovieList = props => {
+const MovieList = ({movies}) => {
   return (
     <div className="movie-list">
-      {props.movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} />
+      {movies.map((movie) => (
+        <MovieDetails key={v1()} movie={movie}/>
       ))}
     </div>
   );
-}
+};
 
 function MovieDetails({ movie }) {
+  const { path } = useRouteMatch();
+  const hist = useHistory();
+
+  function handleClickRoute(id) {
+    hist.push(`${path}${id}`);
+  }
+
   const { title, director, metascore } = movie;
   return (
-    <div className="movie-card">
+    <div className="movie-card" onClick={() => handleClickRoute(movie.id)}>
       <h2>{title}</h2>
       <div className="movie-director">
         Director: <em>{director}</em>
