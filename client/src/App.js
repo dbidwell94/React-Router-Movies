@@ -28,7 +28,6 @@ const App = () => {
       setSaved([...saved, movie]);
     }
   };
-
   return (
     <div>
       <SavedList list={saved} />
